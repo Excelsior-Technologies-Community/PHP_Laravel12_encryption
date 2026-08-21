@@ -7,6 +7,7 @@ use App\Http\Controllers\HashController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\SecureNoteController;
 use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\SecureCredentialController;
 
 Route::get('/', function () {
     return view('home');
@@ -48,4 +49,16 @@ Route::post('/secure-notes/{token}', [SecureNoteController::class, 'decrypt'])->
 Route::get('/qr-code', [QrCodeController::class, 'index'])->name('qr-code');
 Route::post('/qr/generate', [QrCodeController::class, 'generate'])->name('qr.generate');
 Route::post('/qr/generate/encrypted', [QrCodeController::class, 'generateEncrypted'])->name('qr.generate.encrypted');
+
+Route::get('/secure-credentials', [SecureCredentialController::class, 'index'])
+    ->name('secure-credentials');
+
+Route::post('/secure-credentials', [SecureCredentialController::class, 'store'])
+    ->name('secure-credentials.store');
+
+Route::get('/secure-credentials/{credential}', [SecureCredentialController::class, 'show'])
+    ->name('secure-credentials.show');
+
+Route::delete('/secure-credentials/{credential}', [SecureCredentialController::class, 'destroy'])
+    ->name('secure-credentials.destroy');
 
